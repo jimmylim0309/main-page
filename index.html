@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>항텅솜분 - HANGTHONG SOMBOON</title>
+  
+  <!-- 구글 폰트 (고급스러운 샌세리프 및 태국어 폰트) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;600;700&family=Prompt:wght@300;400;600;700&family=Cinzel:wght@600;700&display=swap" rel="stylesheet">
+  <!-- 폰트어썸 아이콘 라이브러리 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ------------------------------------
+       1. 기본 변수 및 초기화 설정
+    ------------------------------------ */
+    :root {
+      --bg-dark-red: #4a0008;
+      --bg-gradient-top: #60000a;
+      --bg-gradient-bottom: #2b0004;
+      --gold-light: #ffe58f;
+      --gold-main: #d4af37;
+      --gold-dark: #aa7c11;
+      --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa7c11 100%);
+      --text-white: #ffffff;
+      --text-gold: #f3e5ab;
+      --card-bg: rgba(40, 0, 5, 0.65);
+      --card-border: rgba(212, 175, 55, 0.4);
+      --card-hover-border: rgba(255, 229, 143, 0.9);
+      --font-ko: 'Noto Sans KR', sans-serif;
+      --font-th: 'Prompt', sans-serif;
+      --font-en: 'Cinzel', serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-ko);
+      background: linear-gradient(180deg, var(--bg-gradient-top) 0%, var(--bg-dark-red) 50%, var(--bg-gradient-bottom) 100%);
+      color: var(--text-white);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      padding: 15px;
+    }
+
+    /* ------------------------------------
+       2. 모바일 프레임 레이아웃 (최적화)
+    ------------------------------------ */
+    .mobile-container {
+      width: 100%;
+      max-width: 480px; /* 모바일 기기 기준 최대 폭 */
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 20px 30px 20px;
+      position: relative;
+    }
+
+    /* ------------------------------------
+       3. 상단 언어 선택 버튼 (한국어 / 태국어)
+    ------------------------------------ */
+    .lang-switcher-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+
+    .lang-switcher {
+      display: flex;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 3px;
+      backdrop-filter: blur(5px);
+    }
+
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .lang-btn.active {
+      background: var(--gold-gradient);
+      color: #300;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    /* ------------------------------------
+       4. 로고 및 헤더 영역
+    ------------------------------------ */
+    .header-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 25px;
+      width: 100%;
+    }
+
+    .logo-frame {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      padding: 5px;
+      background: var(--gold-gradient);
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.4), inset 0 0 10px rgba(0,0,0,0.5);
+      margin-bottom: 20px;
+      animation: pulseGlow 3s infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+      100% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.7); }
+    }
+
+    .logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .main-title {
+      font-family: 'Prompt', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .sub-title {
+      font-family: var(--font-en);
+      font-size: 0.9rem;
+      color: var(--text-gold);
+      letter-spacing: 2px;
+      opacity: 0.9;
+    }
+
+    .instruction-text {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.85);
+      background: rgba(0,0,0,0.2);
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* ------------------------------------
+       5. 메인 좌/우 서비스 링크 선택 카드
+    ------------------------------------ */
+    .links-container {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* 좌우 2컬럼 배치 */
+      gap: 15px;
+      margin: 10px 0 20px 0;
+    }
+
+    .link-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 18px;
+      padding: 24px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: var(--text-white);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .link-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+      transition: 0.5s;
+    }
+
+    .link-card:hover::before, .link-card:active::before {
+      left: 100%;
+    }
+
+    .link-card:hover, .link-card:active {
+      transform: translateY(-5px);
+      border-color: var(--card-hover-border);
+      box-shadow: 0 12px 25px rgba(212, 175, 55, 0.3);
+      background: rgba(60, 0, 10, 0.8);
+    }
+
+    /* 카드 내 아이콘 스타일 */
+    .icon-wrapper {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--gold-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      color: var(--gold-light);
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .link-card:hover .icon-wrapper {
+      background: var(--gold-gradient);
+      color: #300;
+      scale: 1.1;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-gold);
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    .card-desc {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.7);
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .card-arrow {
+      margin-top: 12px;
+      font-size: 0.8rem;
+      color: var(--gold-light);
+      opacity: 0.8;
+      transition: transform 0.3s ease;
+    }
+
+    .link-card:hover .card-arrow {
+      transform: translateX(4px);
+      opacity: 1;
+    }
+
+    /* ------------------------------------
+       6. 하단 푸터 영역
+    ------------------------------------ */
+    .footer {
+      margin-top: auto;
+      text-align: center;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.4);
+      padding-top: 15px;
+    }
+
+    /* 태국어 폰트 설정 적용 클래스 */
+    .lang-th {
+      font-family: var(--font-th) !important;
+    }
+    
+    .lang-ko {
+      font-family: var(--font-ko) !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-container">
+    
+    <!-- 1. 상단 언어 선택기 (한국어 / 태국어 전환) -->
+    <div class="lang-switcher-wrapper">
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLanguage('ko')" id="btn-ko">
+          🇰🇷 한국어
+        </button>
+        <button class="lang-btn" onclick="setLanguage('th')" id="btn-th">
+          🇹🇭 ไทย
+        </button>
+      </div>
+    </div>
+
+    <!-- 2. 로고 및 브랜드 헤더 -->
+    <header class="header-section">
+      <div class="logo-frame">
+        <!-- 동일 폴더 내의 로고 이미지 사용 -->
+        <img src="logo.jpg" alt="항텅솜분 로고" class="logo-img" onerror="this.src='https://via.placeholder.com/170/60000a/d4af37?text=SOMBOON'">
+      </div>
+      <h1 class="main-title">ห้างทองสมบูรณ์</h1>
+      <p class="sub-title">HANGTHONG SOMBOON</p>
+      <p class="instruction-text" id="ui-instruction">이동할 서비스를 선택해 주세요</p>
+    </header>
+
+    <!-- 3. 좌/우 선택 링크 카드 (모바일 최적화) -->
+    <main class="links-container">
+      
+      <!-- 왼쪽: SOMBOON 금방/골드샵 메인 -->
+      <a href="https://somboon.netlify.app" class="link-card" target="_blank" rel="noopener noreferrer">
+        <div class="icon-wrapper">
+          <i class="fa-solid fa-gem"></i>
+        </div>
+        <div class="card-title" id="title-somboon">항텅솜분</div>
+        <div class="card-desc" id="desc-somboon">내 적립금 보기</div>
+        <div class="card-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      </a>
+
+      <!-- 오른쪽: SBGOLD PAWN 전당포/금융 서비스 -->
+      <a href="https://sbgold-pawn.netlify.app" class="link-card" target="_blank" rel="noopener noreferrer">
+        <div class="icon-wrapper">
+          <i class="fa-solid fa-hand-holding-dollar"></i>
+        </div>
+        <div class="card-title" id="title-pawn">솜분 담보대출</div>
+        <div class="card-desc" id="desc-pawn">금/귀금속 담보 대출 및 전당 서비스</div>
+        <div class="card-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      </a>
+
+    </main>
+
+    <!-- 4. 푸터 저작권 표시 -->
+    <footer class="footer">
+      <p>© HANGTHONG SOMBOON. All rights reserved.</p>
+    </footer>
+
+  </div>
+
+  <!-- ------------------------------------
+       7. 다국어 전환 자바스크립트 스크립트
+  ------------------------------------ -->
+  <script>
+    // 언어별 텍스트 데이터 정의
+    const translations = {
+      ko: {
+        instruction: "이동할 서비스를 선택해 주세요",
+        titleSomboon: "항텅솜분",
+        descSomboon: "적립금 확인 서비스",
+        titlePawn: "솜분 담보대출",
+        descPawn: "금/귀금속 담보 대출 및 전당 서비스"
+      },
+      th: {
+        instruction: "กรุณาเลือกบริการที่ต้องการ",
+        titleSomboon: "ห้างทองสมบูรณ์",
+        descSomboon: "ดูเงินออมของฉั",
+        titlePawn: "สมบูรณ์จำนำ",
+        descPawn: "บริการรับจำนำทองและของมีค่า"
+      }
+    };
+
+    // 언어 변경 함수
+    function setLanguage(lang) {
+      // 버튼 활성화 클래스 토글
+      document.getElementById('btn-ko').classList.toggle('active', lang === 'ko');
+      document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+
+      // 텍스트 교체
+      document.getElementById('ui-instruction').innerText = translations[lang].instruction;
+      document.getElementById('title-somboon').innerText = translations[lang].titleSomboon;
+      document.getElementById('desc-somboon').innerText = translations[lang].descSomboon;
+      document.getElementById('title-pawn').innerText = translations[lang].titlePawn;
+      document.getElementById('desc-pawn').innerText = translations[lang].descPawn;
+
+      // 태국어 모드 시 폰트 클래스 변경
+      if (lang === 'th') {
+        document.body.classList.add('lang-th');
+        document.body.classList.remove('lang-ko');
+      } else {
+        document.body.classList.add('lang-ko');
+        document.body.classList.remove('lang-th');
+      }
+    }
+  </script>
+</body>
+</html>
